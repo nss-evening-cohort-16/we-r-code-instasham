@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import firebase from 'firebase/app';
+import 'firebase/auth';
 // import {
 //   // ProfileInfo,
 // Navbar,
@@ -8,17 +10,34 @@ import React from 'react';
 // } from '../components/instasham-design-system/Navbar';
 import Navbar from '../components/instasham-design-system/Navbar';
 import Routes from '../routes/index';
+import Login from '../views/Login';
 import './App.scss';
 // import POSTJSON from '../sample_json/posts.json';
 // import USERJSON from '../sample_json/users.json';
 
 function App() {
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((authed) => {
+      if (authed) {
+        const userInfoObj = {
+          uid: authed.uid,
+        };
+        setUser(userInfoObj);
+        console.warn(userInfoObj.uid);
+      } else if (user || user === null) {
+        setUser(false);
+      }
+    });
+  }, []);
   return (
     <>
-      <Navbar userInfo={{ username: 'asd' }} />
-      <div className="app-container">
-        <Routes />
-        {/* <h2>UserList</h2>
+      {user ? (
+        <>
+          <Navbar userInfo={{ username: 'asd' }} />
+          <div className="app-container">
+            <Routes />
+            {/* <h2>UserList</h2>
         <UsersList userList={Object.values(USERJSON)} />
         <h2>ProfileInfo</h2>
         <ProfileInfo
@@ -33,7 +52,11 @@ function App() {
         <PostDetailsCard postInfo={Object.values(POSTJSON)[0]} />
         <h2>PostGrid</h2>
         <PostGrid posts={Object.values(POSTJSON)} /> */}
-      </div>
+          </div>
+        </>
+      ) : (
+        <Login user={user} />
+      )}
     </>
   );
 }
