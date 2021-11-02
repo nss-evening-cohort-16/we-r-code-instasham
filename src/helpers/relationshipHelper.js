@@ -1,6 +1,16 @@
+import axios from "axios";
+import firebaseConfig from "./firebaseHelper";
+
+const dbUrl = firebaseConfig.databaseURL;
+
 const getFollowersByUid = (uid) => new Promise((resolve) => {
   // TODO: Get array of all the followers based on uid
+  axios.get(`${dbUrl}/relationships.json?orderBy="userId"&equalTo=${uid}`)
+  .then((response) => {
+    const followersArray = [...response.data.followingId]
+  })
   console.warn(uid);
+  console.warn(followersArray);
   resolve([]);
 });
 
