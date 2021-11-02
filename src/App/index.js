@@ -16,8 +16,8 @@ function App() {
   return (
     <>
       <Navbar userInfo={{ username: 'asd' }} />
-      <Routes />
       <div className="app-container">
+        <Routes />
         {/* <h2>UserList</h2>
         <UsersList userList={Object.values(USERJSON)} />
         <h2>ProfileInfo</h2>
