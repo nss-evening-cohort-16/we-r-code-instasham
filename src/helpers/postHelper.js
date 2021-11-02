@@ -9,6 +9,12 @@ const getAllPosts = () => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
+const getSinglePost = (postId) => new Promise((resolve, reject) => {
+  axios.get(`${dbURL}/posts/${postId}.json`)
+    .then((response) => resolve(response.data))
+    .catch(reject);
+});
+
 const deletePost = (postId) => new Promise((resolve) => {
   // TODO: Delete Post based on postId
   axios.delete(`${dbURL}/posts/${postId}.json`)
@@ -18,4 +24,5 @@ const deletePost = (postId) => new Promise((resolve) => {
 export {
   deletePost,
   getAllPosts,
+  getSinglePost,
 };
