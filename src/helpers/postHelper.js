@@ -16,5 +16,6 @@ const deletePost = (postId) => new Promise((resolve) => {
 });
 
 export {
-  deletePost, // eslint-disable-line
+  deletePost,
+  getAllPosts,
 };

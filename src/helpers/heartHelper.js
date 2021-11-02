@@ -1,3 +1,8 @@
+import axios from 'axios';
+import firebaseConfig from './firebaseHelper';
+
+const dbURL = firebaseConfig.databaseURL;
+
 const userLikesPost = (postId) => new Promise((resolve) => {
   // TODO: get whether or not current user likes post based on postId
   const likes = Math.floor(Math.random() * 1000);
@@ -10,7 +15,14 @@ const userLikesPost = (postId) => new Promise((resolve) => {
 
 const heartPost = (postID) => new Promise((resolve) => {
   // TODO: Heart Post using passed in postID
-  resolve({ postID });
+  axios.post(`${dbURL}/hearts.json`, postID)
+    .then((response) => {
+      const heartID = response.data.name;
+      axios.patch(`${dbURL}/hearts/${heartID}.json`, { heartID })
+        .then(() => {
+          resolve({ postID });
+        });
+    });
 });
 
 const unheartPost = (firebaseKey) => new Promise((resolve) => {
