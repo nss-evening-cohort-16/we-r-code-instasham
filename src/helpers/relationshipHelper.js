@@ -16,10 +16,17 @@ const getFollowersByUid = (uid) => new Promise((resolve, reject) => {
   console.warn(uid);
 });
 
-const getFollowingByUid = (uid) => new Promise((resolve) => {
+const getFollowingByUid = (uid) => new Promise((resolve, reject) => {
   // TODO: Get array of all the following based on uid
-  console.warn(uid);
-  resolve([]);
+  // get objects that have the userID in it
+  axios
+    .get(`${dbUrl}/relationships.json?orderBy="userId"&equalTo="${uid}"`)
+    .then((array) => {
+      const followingArray = array.filter((following) => following.userId);
+      resolve(followingArray);
+    }).catch(reject);
+  // console.warn(uid);
+  // resolve([]);
 });
 
 const getIsFollowing = (userId) => new Promise((resolve) => {

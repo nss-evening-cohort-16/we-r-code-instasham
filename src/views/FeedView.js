@@ -18,9 +18,8 @@ export default function FeedView() {
 
   return (
     <div>
-      <h2>PostDetailsCard</h2>
-      {posts.map((post) => (
-        <PostDetailsCard key={post.firebaseKey} post={post} setPosts={setPosts} postInfo={Object.values(POSTJSON)[0]} />
+      {posts.map((post, i) => (
+        <PostDetailsCard key={post.firebaseKey} post={post} setPosts={setPosts} postInfo={Object.values(POSTJSON)[i]} />
       ))}
     </div>
   );
