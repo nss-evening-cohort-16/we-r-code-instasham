@@ -30,7 +30,7 @@ const getIsFollowing = (userId) => new Promise((resolve) => {
 
 const unfollowUser = (relationshipId) => new Promise((resolve) => {
   // TODO: unfollow user based on relationshipId(firebasekey of relationship)
-  axios.delete(`${dbUrl}/relationships/${relationshipId}/followingId`)
+  axios.delete(`${dbUrl}/relationships/${relationshipId}/followingId.json`)
     .then(() => resolve(relationshipId));
 });
 
