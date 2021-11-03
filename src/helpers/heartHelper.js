@@ -23,3 +23,15 @@ export {
   unheartPost,
   userLikesPost,
 };
+
+// const heartPost = (postID) => new Promise((resolve) => {
+//   // TODO: Heart Post using passed in postID
+//   axios.post(`${dbURL}/hearts.json`, postID)
+//     .then((response) => {
+//       const heartID = response.data.name;
+//       axios.patch(`${dbURL}/hearts/${heartID}.json`, { heartID })
+//         .then(() => {
+//           resolve({ postID });
+//         });
+//     });
+// });

@@ -1,21 +1,28 @@
 import axios from 'axios';
 import firebaseConfig from './firebaseHelper';
 
-const dbUrl = firebaseConfig.databaseURL;
+const dbURL = firebaseConfig.databaseURL;
 
-const deletePost = (postId) => new Promise((resolve) => {
-  // TODO: Delete Post based on postId
-  resolve({ postId });
-});
-
-const getAllPosts = (uid) => new Promise((resolve, reject) => {
-  axios
-    .get(`${dbUrl}/posts.json?orderBy="uid"&equalTo="${uid}"`)
+const getAllPosts = () => new Promise((resolve, reject) => {
+  axios.get(`${dbURL}/posts.json`)
     .then((response) => resolve(Object.values(response.data)))
     .catch(reject);
 });
 
+const getSinglePost = (postId) => new Promise((resolve, reject) => {
+  axios.get(`${dbURL}/posts/${postId}.json`)
+    .then((response) => resolve(response.data))
+    .catch(reject);
+});
+
+const deletePost = (postId) => new Promise((resolve) => {
+  // TODO: Delete Post based on postId
+  axios.delete(`${dbURL}/posts/${postId}.json`)
+    .then(() => getAllPosts().then(resolve({ postId })));
+});
+
 export {
-  deletePost, // eslint-disable-line
+  deletePost,
   getAllPosts,
+  getSinglePost,
 };
