@@ -8,13 +8,10 @@ const getFollowersByUid = (uid) => new Promise((resolve, reject) => {
   axios
     .get(`${dbUrl}/relationships.json?orderBy="userId"&equalTo="${uid}"`)
     .then((response) => {
-      const returnedRelationships = Object(response.data);
-      // const followers = returnedRelationships.map(
-      //   (follower) => follower.followingId,
-      // );
-      console.warn(returnedRelationships);
+      const returnedRelationships = Object.values(response.data);
+      const findFollowers = (array) => array.map((follower) => (follower.followingId));
+      resolve(findFollowers(returnedRelationships));
     })
-    .then((response) => resolve([response]))
     .catch(reject);
   console.warn(uid);
 });
