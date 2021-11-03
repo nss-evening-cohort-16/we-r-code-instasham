@@ -17,7 +17,9 @@ const getIsFollowing = (userId) => new Promise((resolve) => {
 });
 
 const unfollowUser = (relationshipId) => new Promise((resolve) => {
-  // TODO: unfollow user based on relationshipId
+  // TODO: unfollow user based on relationshipId(firebasekey of relationship)
+  // give key value pair of following and the value being a boolean
+  // unfollow user changes the value to false
   resolve(relationshipId);
 });
 
