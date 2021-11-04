@@ -16,11 +16,11 @@ const getFollowersByUid = (uid) => new Promise((resolve, reject) => {
   console.warn(uid);
 });
 
-const getFollowingByUid = (uid) => new Promise((resolve, reject) => {
+const getFollowingByUid = (userId) => new Promise((resolve, reject) => {
   // TODO: Get array of all the following based on uid
   // get objects that have the userID in it
   axios
-    .get(`${dbUrl}/relationships.json?orderBy="userId"&equalTo="${uid}"`)
+    .get(`${dbUrl}/relationships.json?orderBy="userId"&equalTo="${userId}"`)
     .then((array) => {
       const followingArray = array.filter((following) => following.userId);
       resolve(followingArray);
@@ -31,6 +31,8 @@ const getFollowingByUid = (uid) => new Promise((resolve, reject) => {
 
 const getIsFollowing = (userId) => new Promise((resolve) => {
   // TODO: Get boolean of whether or not current user follows userId
+  // axios
+  //   .get(`${dbUrl}/relationships.json?orderBy="userId"&equalTo="${userId}"`)
   console.warn(userId);
   resolve(!!(Math.floor(Math.random() * 2) % 2));
 });

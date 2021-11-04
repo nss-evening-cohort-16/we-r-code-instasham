@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Switch, Route } from 'react-router-dom';
 import ProfileView from '../views/ProfileView';
 import FeedView from '../views/FeedView';
@@ -8,10 +9,10 @@ import BrowseView from '../views/BrowseView';
 import CreateView from '../views/CreateView';
 import EditPostView from '../views/EditPostView';
 
-export default function Routes() {
+export default function Routes({ uid }) {
   return (
     <Switch>
-      <Route exact path="/" component={FeedView} />
+      <Route exact path="/" component={() => <FeedView uid={uid} />} />
       <Route exact path="/browse" component={BrowseView} />
       <Route exact path="/create" component={CreateView} />
       <Route exact path="/hearts" component={HeartView} />
@@ -21,3 +22,8 @@ export default function Routes() {
     </Switch>
   );
 }
+
+Routes.propTypes = {
+  uid: PropTypes.string,
+};
+Routes.defaultProps = { uid: '' };
