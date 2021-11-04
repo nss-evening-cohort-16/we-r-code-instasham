@@ -36,7 +36,7 @@ function App() {
         <>
           <Navbar userInfo={{ username: 'asd' }} />
           <div className="app-container">
-            <Routes />
+            <Routes uid={user.uid} />
             {/* <h2>UserList</h2>
         <UsersList userList={Object.values(USERJSON)} />
         <h2>ProfileInfo</h2>
