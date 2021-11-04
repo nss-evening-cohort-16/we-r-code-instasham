@@ -1,20 +1,42 @@
-import React from 'react';
+import { React, useState } from 'react';
 import {
   Button, Form, FormGroup, Label, Input,
 } from 'reactstrap';
+import { createPost } from '../../helpers/postHelper';
+
+const initialState = {
+  caption: '',
+  datePublished: '',
+  imageUrl: '',
+  userId: '',
+};
 
 export default function PostForm() {
+  const [FormInput, setFormInput] = useState(initialState);
+
+  const handleChange = (e) => {
+    setFormInput((prevState) => ({
+      ...prevState,
+      [e.target.id]: e.target.value,
+    }));
+  };
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    createPost({ ...FormInput, datePublished: Date() }).then(console.warn);
+  };
+
   return (
     <Form>
       <FormGroup>
-        <Label for="imageId">Image</Label>
-        <Input type="image" name="image" id="imageId" />
+        <Label for="image">Image</Label>
+        <Input type="image" id="image" onChange={(e) => handleChange(e)} required />
       </FormGroup>
       <FormGroup>
-        <Label for="captionId">Caption</Label>
-        <Input type="text" name="caption" id="captionId" placeholder="with a placeholder" />
+        <Label for="caption">Caption</Label>
+        <Input type="text" id="caption" onChange={(e) => handleChange(e)} />
       </FormGroup>
-      <Button>Submit</Button>
+      <Button onClick={(e) => handleClick(e)}>Submit</Button>
     </Form>
   );
 }
