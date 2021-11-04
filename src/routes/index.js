@@ -7,6 +7,7 @@ import PostDetailsView from '../views/PostDetailsView';
 import BrowseView from '../views/BrowseView';
 import CreateView from '../views/CreateView';
 import EditPostView from '../views/EditPostView';
+import SettingsView from '../views/SettingsView';
 
 export default function Routes() {
   return (
@@ -18,6 +19,7 @@ export default function Routes() {
       <Route exact path="/sham/:username" component={ProfileView} />
       <Route exact path="/posts/:postID" component={PostDetailsView} />
       <Route exact path="/edit/:editPostId" component={EditPostView} />
+      <Route exact path="/settings/" component={SettingsView} />
     </Switch>
   );
 }

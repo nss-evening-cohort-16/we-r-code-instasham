@@ -15,7 +15,21 @@ const getUserByUid = (uid) => new Promise((resolve, reject) => {
   // resolve(currentUserInfo);
 });
 
+const updateBio = (bioObj) => new Promise((resolve, reject) => {
+  axios.patch(`${dbUrl}/users/${bioObj.firebaseKey}.json`, bioObj)
+    .then(() => resolve)
+    .catch(reject);
+});
+
+const getSingleUserBio = (userId) => new Promise((resolve, reject) => {
+  axios.get(`${dbUrl}/users/${userId}/bio.json`)
+    .then((response) => resolve(response.data))
+    .catch(reject);
+});
+
 export {
   getUserByUid,
   getCurrentUsersUid,
+  updateBio,
+  getSingleUserBio,
 };
