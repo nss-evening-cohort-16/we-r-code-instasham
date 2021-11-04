@@ -3,8 +3,8 @@ import firebaseConfig from './firebaseHelper';
 
 const dbURL = firebaseConfig.databaseURL;
 
-const getAllPosts = () => new Promise((resolve, reject) => {
-  axios.get(`${dbURL}/posts.json`)
+const getAllPosts = (userId) => new Promise((resolve, reject) => {
+  axios.get(`${dbURL}/posts.json?orderBy="userId"&equalTo="${userId}"`)
     .then((response) => resolve(Object.values(response.data)))
     .catch(reject);
 });
