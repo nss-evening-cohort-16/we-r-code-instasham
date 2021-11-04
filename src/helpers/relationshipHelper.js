@@ -16,11 +16,11 @@ const getFollowersByUid = (uid) => new Promise((resolve, reject) => {
   console.warn(uid);
 });
 
-const getFollowingByUid = (userId) => new Promise((resolve, reject) => {
+const getFollowingByUid = (uid) => new Promise((resolve, reject) => {
   // TODO: Get array of all the following based on uid
-  // get objects that have the userID in it
+  // get relationship objects that have the userId in it
   axios
-    .get(`${dbUrl}/relationships.json?orderBy="userId"&equalTo="${userId}"`)
+    .get(`${dbUrl}/relationships.json?orderBy="userId"&equalTo="${uid}"`)
     .then((array) => {
       const followingArray = array.filter((following) => following.userId);
       resolve(followingArray);
@@ -29,12 +29,14 @@ const getFollowingByUid = (userId) => new Promise((resolve, reject) => {
   // resolve([]);
 });
 
-const getIsFollowing = (userId) => new Promise((resolve) => {
+const getIsFollowing = (userId) => new Promise((resolve, reject) => {
   // TODO: Get boolean of whether or not current user follows userId
-  // axios
-  //   .get(`${dbUrl}/relationships.json?orderBy="userId"&equalTo="${userId}"`)
-  console.warn(userId);
-  resolve(!!(Math.floor(Math.random() * 2) % 2));
+  axios
+    .get(`${dbUrl}/relationships.json?orderBy="userId"&equalTo="${userId}"`)
+    .then(() => resolve(!!(Math.floor(Math.random() * 2) % 2)))
+    .catch(reject);
+  // console.warn(userId);
+  // resolve(!!(Math.floor(Math.random() * 2) % 2));
 });
 
 const unfollowUser = (relationshipId) => new Promise((resolve) => {
