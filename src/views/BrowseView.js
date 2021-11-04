@@ -12,7 +12,7 @@ const getSearchItems = (searchTerm, users) => {
   if (!searchTerm) {
     return users;
   }
-  return users.filter((user) => user.username.includes(searchTerm));
+  return users.filter((user) => user.username.toLowerCase().includes(searchTerm) || user.fullName.toLowerCase().includes(searchTerm));
 };
 export default function BrowseView() {
   const users = Object.values(USERJSON);
