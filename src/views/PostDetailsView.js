@@ -11,26 +11,17 @@ export default function PostDetailsView() {
     let isMounted = true;
     if (isMounted) {
       getSinglePost(postID).then(setPost);
-      console.warn('post:', post, 'postId:', postID);
     }
     return () => {
       isMounted = false;
     };
   }, []);
-
+  // terenary to see if post has firebasekey if so render postdetails card if not loading text
   return (
     <div>
-      <PostDetailsCard postInfo={post} />
+      { post.firebaseKey ? (
+        <PostDetailsCard postInfo={post} />
+      ) : ('...Loading')}
     </div>
   );
 }
-// PostDetailsView.propTypes = {
-//   postInfo: PropTypes.shape({
-//     caption: PropTypes.string,
-//     datePublished: PropTypes.string,
-//     firebaseKey: PropTypes.string,
-//     photoUrl: PropTypes.string,
-//     userId: PropTypes.string,
-//   }),
-// };
-// PostDetailsView.defaultProps = { postInfo: {} };
