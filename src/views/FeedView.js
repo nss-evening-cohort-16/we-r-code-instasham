@@ -21,7 +21,6 @@ export default function FeedView({ uid }) {
       {posts.map((post) => (
         <PostDetailsCard
           key={post.firebaseKey}
-          setPosts={setPosts}
           postInfo={post}
         />
       ))}
