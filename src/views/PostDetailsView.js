@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-// import PropTypes from 'prop-types';
 import PostDetailsCard from '../components/instasham-design-system/PostDetailsCard';
 import { getSinglePost } from '../helpers/postHelper';
 
