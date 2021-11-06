@@ -4,7 +4,9 @@ import { signOutUser } from '../../helpers/auth';
 
 const ButtonStyle = styled.button`
   margin-left: 30px;
-  margin-top: 35px;
+  margin-top: 60px;
+  font-size: 20px;
+  border-radius: 5px;
 `;
 
 export default function LogoutButton() {

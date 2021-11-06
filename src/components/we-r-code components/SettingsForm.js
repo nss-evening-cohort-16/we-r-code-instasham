@@ -9,13 +9,15 @@ import { updateBio } from '../../helpers/userHelper';
 
 const FormStyle = styled.form`
   width: 400px;
-  border-radius: 5px;
+  font-size: 20px;
+  margin-top: 20px;
 `;
 
 const ButtonStyle = styled.button`
   background: white;
   color: #56d1ba;
   border-color: #56d1ba;
+  border-radius: 5px;
 `;
 
 const initialState = {
@@ -45,17 +47,17 @@ export default function SettingsForm({ obj = {} }) {
     }));
   };
 
-  const handleClick = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    updateBio(formInput).then(() => {
-      history.push('/sham/:username');
-      console.warn('Items updated!', formInput);
+    updateBio(formInput).then((response) => {
+      console.warn('Items updated!', response);
     });
+    history.push('/');
   };
 
   return (
     <div>
-      <FormStyle onSubmit={handleClick}>
+      <FormStyle onSubmit={handleSubmit}>
         <FormGroup>
           <Label htmlFor="bio">Update Bio:</Label>
           <Input onChange={handleChange} value={formInput.bio || ''} type="textarea" name="bio" id="bio" />
