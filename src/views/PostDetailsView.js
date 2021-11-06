@@ -15,7 +15,7 @@ export default function PostDetailsView() {
       isMounted = false;
     };
   }, []);
-  // terenary to see if post has firebasekey if so render postdetails card if not loading text
+
   return (
     <div>
       { post.firebaseKey ? (
