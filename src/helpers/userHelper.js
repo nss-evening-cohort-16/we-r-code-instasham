@@ -22,8 +22,8 @@ const updateBio = (bioObj) => new Promise((resolve, reject) => {
 });
 
 const getSingleUserBio = (userId) => new Promise((resolve, reject) => {
-  axios.get(`${dbUrl}/users/${userId}/bio.json`)
-    .then((response) => resolve(response.data))
+  axios.get(`${dbUrl}/users/${userId}.json`)
+    .then(() => resolve)
     .catch(reject);
 });
 

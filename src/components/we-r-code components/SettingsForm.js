@@ -57,8 +57,8 @@ export default function SettingsForm({ obj = {} }) {
     <div>
       <FormStyle onSubmit={handleClick}>
         <FormGroup>
-          <Label htmlFor="userBio">Update Bio:</Label>
-          <Input onChange={handleChange} value={formInput.bio || ''} type="textarea" name="userBio" id="userBio" />
+          <Label htmlFor="bio">Update Bio:</Label>
+          <Input onChange={handleChange} value={formInput.bio || ''} type="textarea" name="bio" id="bio" />
         </FormGroup>
         <ButtonStyle>Submit</ButtonStyle>
       </FormStyle>
@@ -67,7 +67,9 @@ export default function SettingsForm({ obj = {} }) {
 }
 
 SettingsForm.propTypes = {
-  obj: PropTypes.shape({}),
+  obj: PropTypes.shape({
+    bio: '',
+  }),
 };
 
 SettingsForm.defaultProps = {

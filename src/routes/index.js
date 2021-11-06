@@ -20,7 +20,7 @@ export default function Routes({ uid }) {
       <Route exact path="/sham/:username" component={ProfileView} />
       <Route exact path="/posts/:postID" component={PostDetailsView} />
       <Route exact path="/edit/:editPostId" component={EditPostView} />
-      <Route exact path="/settings/" component={SettingsView} />
+      <Route exact path="/settings" component={SettingsView} />
     </Switch>
   );
 }
