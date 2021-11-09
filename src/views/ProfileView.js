@@ -24,7 +24,16 @@ export default function ProfileView() {
   return (
     <div>
       <h1>@{username}</h1>
-      <ProfileInfo fullName={user.fullName} bio={user.bio} profileImage={Number(user.profileImage)} followingCount={Number(following.length)} followerCount={Number(followers.length)} postsCount={Number(posts.length)} uid={user.uid} />
+      <ProfileInfo
+        fullName={user.fullName}
+        bio={user.bio}
+        profileImage={Number(user.profileImage)}
+        followingCount={Number(following.length)}
+        followerCount={Number(followers.length)}
+        postsCount={Number(posts.length)}
+        uid={Number(user.uid)}
+        isUser
+      />
       <PostGrid posts={posts} key={posts.firebaseKey} />
     </div>
   );
