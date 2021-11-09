@@ -18,10 +18,10 @@ const getFollowersByUid = (uid) => new Promise((resolve, reject) => {
 
 const getFollowingByUid = (uid) => new Promise((resolve, reject) => {
   // TODO: Get array of all the following based on uid
-  // get relationship objects that have the userId in it
   axios
     .get(`${dbUrl}/relationships.json?orderBy="userId"&equalTo="${uid}"`)
-    .then((array) => {
+    .then((response) => {
+      const array = Object.values(response.data);
       const followingArray = array.filter((following) => following.userId);
       resolve(followingArray);
     }).catch(reject);

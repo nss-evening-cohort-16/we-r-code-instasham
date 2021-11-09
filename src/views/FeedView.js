@@ -1,17 +1,35 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import PostDetailsCard from '../components/instasham-design-system/PostDetailsCard';
-import POSTJSON from '../sample_json/posts.json';
+// import { getFollowingByUid } from '../helpers/relationshipHelper';
 import { getAllPosts } from '../helpers/postHelper';
 
 export default function FeedView({ uid }) {
   const [posts, setPosts] = useState([]);
+  // let userPosts = [];
 
   useEffect(() => {
     let isMounted = true;
-    getAllPosts(uid).then((postArray) => {
-      if (isMounted) setPosts(postArray);
+    getAllPosts(uid).then((userPostsArray) => {
+      if (isMounted) {
+        // setUserPosts(userPostsArray);
+        setPosts(userPostsArray);
+        console.warn(userPostsArray);
+      }
+      console.warn(posts);
     });
+    // getFollowingByUid(uid).then((followingArray) => {
+    //   if (isMounted) {
+    //     followingArray.forEach((following) => {
+    //       getAllPosts(following.followingId).then((followingPostsArray) => {
+    //         allFollowingPosts = allFollowingPosts.concat(followingPostsArray);
+    //         // console.warn(allFollowingPosts);
+    //       });
+    //     });
+    //     setPosts(allFollowingPosts);
+    //     console.warn(allFollowingPosts);
+    //   }
+    // });
     return () => {
       isMounted = false;
     };
@@ -19,8 +37,8 @@ export default function FeedView({ uid }) {
 
   return (
     <div>
-      {posts.map((post, i) => (
-        <PostDetailsCard key={post.firebaseKey} post={post} setPosts={setPosts} postInfo={Object.values(POSTJSON)[i]} />
+      {posts.map((post) => (
+        <PostDetailsCard key={post.firebaseKey} postInfo={post} />
       ))}
     </div>
   );
