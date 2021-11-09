@@ -1,4 +1,5 @@
 import { React, useState } from 'react';
+import PropTypes from 'prop-types';
 import {
   Button, Form, FormGroup, Label, Input,
 } from 'reactstrap';
@@ -11,7 +12,7 @@ const initialState = {
   userId: '',
 };
 
-export default function PostForm() {
+export default function PostForm({ uid }) {
   const [FormInput, setFormInput] = useState(initialState);
 
   const handleChange = (e) => {
@@ -23,14 +24,14 @@ export default function PostForm() {
 
   const handleClick = (e) => {
     e.preventDefault();
-    createPost({ ...FormInput, datePublished: Date() }).then(console.warn);
+    createPost({ ...FormInput, datePublished: Date(), userId: uid }).then(console.warn);
   };
 
   return (
     <Form>
       <FormGroup>
-        <Label for="image">Image</Label>
-        <Input type="image" id="image" onChange={(e) => handleChange(e)} required />
+        <Label for="imageUrl">Image</Label>
+        <Input type="text" id="imageUrl" onChange={(e) => handleChange(e)} required />
       </FormGroup>
       <FormGroup>
         <Label for="caption">Caption</Label>
@@ -40,3 +41,8 @@ export default function PostForm() {
     </Form>
   );
 }
+
+PostForm.propTypes = {
+  uid: PropTypes.string,
+};
+PostForm.defaultProps = { uid: '' };
