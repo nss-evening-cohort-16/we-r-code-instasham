@@ -34,7 +34,7 @@ function App() {
     <>
       {user ? (
         <>
-          <Navbar userInfo={{ username: 'asd' }} />
+          <Navbar userInfo={{ user }} />
           <div className="app-container">
             <Routes uid={user.uid} />
             {/* <h2>UserList</h2>
