@@ -6,12 +6,17 @@ import POSTJSON from '../sample_json/posts.json';
 import { getCurrentUsersUid, getUserByUid } from '../helpers/userHelper';
 
 export default function ProfileView() {
-  const { user, setUser } = useState({});
+  const [user, setUser] = useState({});
   const { username } = useParams();
   useEffect(() => {
-    const userUid = getCurrentUsersUid();
-    getUserByUid(userUid).then(setUser);
+    const currentUser = getCurrentUsersUid();
+    console.warn('Current User:', currentUser);
+    getUserByUid(currentUser).then(setUser);
     console.warn(user);
+    // getUserByUid(currentUser).then((response) => {
+    //   setUser(response);
+    //   console.warn(user);
+    // });
   }, []);
   return (
     <div>
