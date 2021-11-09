@@ -15,7 +15,7 @@ export default function Routes({ uid }) {
     <Switch>
       <Route exact path="/" component={() => <FeedView uid={uid} />} />
       <Route exact path="/browse" component={BrowseView} />
-      <Route exact path="/create" component={CreateView} />
+      <Route exact path="/create" component={() => <CreateView uid={uid} />} />
       <Route exact path="/hearts" component={HeartView} />
       <Route exact path="/sham/:username" component={ProfileView} />
       <Route exact path="/posts/:postID" component={PostDetailsView} />

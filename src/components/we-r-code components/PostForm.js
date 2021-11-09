@@ -1,79 +1,50 @@
-import React from 'react';
+import { React, useState } from 'react';
+import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import {
-  Button, Form, FormGroup, Label, Input, FormText,
+  Button, Form, FormGroup, Label, Input,
 } from 'reactstrap';
+import { createPost } from '../../helpers/postHelper';
 
-export default function PostForm() {
+const initialState = {
+  caption: '',
+  datePublished: '',
+  imageUrl: '',
+  userId: '',
+};
+
+export default function PostForm({ uid }) {
+  const history = useHistory();
+  const [FormInput, setFormInput] = useState(initialState);
+
+  const handleChange = (e) => {
+    setFormInput((prevState) => ({
+      ...prevState,
+      [e.target.id]: e.target.value,
+    }));
+  };
+
+  const handleClick = (e) => {
+    e.preventDefault();
+    createPost({ ...FormInput, datePublished: Date(), userId: uid }).then(() => history.push('/'));
+  };
+
   return (
     <Form>
       <FormGroup>
-        <Label for="exampleEmail">Email</Label>
-        <Input type="email" name="email" id="exampleEmail" placeholder="with a placeholder" />
+        <Label for="imageUrl">Image</Label>
+        <Input type="text" id="imageUrl" onChange={(e) => handleChange(e)} required />
       </FormGroup>
       <FormGroup>
-        <Label for="examplePassword">Password</Label>
-        <Input type="password" name="password" id="examplePassword" placeholder="password placeholder" />
+        <Label for="caption">Caption</Label>
+        <Input type="text" id="caption" onChange={(e) => handleChange(e)} />
       </FormGroup>
-      <FormGroup>
-        <Label for="exampleSelect">Select</Label>
-        <Input type="select" name="select" id="exampleSelect">
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-        </Input>
-      </FormGroup>
-      <FormGroup>
-        <Label for="exampleSelectMulti">Select Multiple</Label>
-        <Input type="select" name="selectMulti" id="exampleSelectMulti" multiple>
-          <option>1</option>
-          <option>2</option>
-          <option>3</option>
-          <option>4</option>
-          <option>5</option>
-        </Input>
-      </FormGroup>
-      <FormGroup>
-        <Label for="exampleText">Text Area</Label>
-        <Input type="textarea" name="text" id="exampleText" />
-      </FormGroup>
-      <FormGroup>
-        <Label for="exampleFile">File</Label>
-        <Input type="file" name="file" id="exampleFile" />
-        <FormText color="muted">
-          This is some placeholder block-level help text for the above input.
-          Its a bit lighter and easily wraps to a new line.
-        </FormText>
-      </FormGroup>
-      <FormGroup tag="fieldset">
-        <legend>Radio Buttons</legend>
-        <FormGroup check>
-          <Label check>
-            <Input type="radio" name="radio1" />{' '}
-            Option one is this and that—be sure to include why its great
-          </Label>
-        </FormGroup>
-        <FormGroup check>
-          <Label check>
-            <Input type="radio" name="radio1" />{' '}
-            Option two can be something else and selecting it will deselect option one
-          </Label>
-        </FormGroup>
-        <FormGroup check disabled>
-          <Label check>
-            <Input type="radio" name="radio1" disabled />{' '}
-            Option three is disabled
-          </Label>
-        </FormGroup>
-      </FormGroup>
-      <FormGroup check>
-        <Label check>
-          <Input type="checkbox" />{' '}
-          Check me out
-        </Label>
-      </FormGroup>
-      <Button>Submit</Button>
+      <Button onClick={(e) => handleClick(e)}>Submit</Button>
     </Form>
   );
 }
+
+PostForm.propTypes = {
+  uid: PropTypes.string,
+};
+PostForm.defaultProps = { uid: '' };
