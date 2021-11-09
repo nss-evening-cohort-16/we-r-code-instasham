@@ -1,5 +1,6 @@
 import { React, useState } from 'react';
 import PropTypes from 'prop-types';
+import { useHistory } from 'react-router-dom';
 import {
   Button, Form, FormGroup, Label, Input,
 } from 'reactstrap';
@@ -13,6 +14,7 @@ const initialState = {
 };
 
 export default function PostForm({ uid }) {
+  const history = useHistory();
   const [FormInput, setFormInput] = useState(initialState);
 
   const handleChange = (e) => {
@@ -24,7 +26,7 @@ export default function PostForm({ uid }) {
 
   const handleClick = (e) => {
     e.preventDefault();
-    createPost({ ...FormInput, datePublished: Date(), userId: uid }).then(console.warn);
+    createPost({ ...FormInput, datePublished: Date(), userId: uid }).then(() => history.push('/'));
   };
 
   return (
