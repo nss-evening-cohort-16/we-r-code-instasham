@@ -30,11 +30,11 @@ export default function ProfileView({ uid }) {
       <ProfileInfo
         fullName={user.fullName}
         bio={user.bio}
-        profileImage={Number(user.profileImage)}
+        profileImage={user.profileImage}
         followingCount={Number(following.length)}
         followerCount={Number(followers.length)}
         postsCount={Number(posts.length)}
-        uid={Number(uid)}
+        uid={uid}
         isUser
       />
       <PostGrid posts={posts} />

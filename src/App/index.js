@@ -30,13 +30,14 @@ function App() {
       }
     });
   }, []);
+  console.warn(user);
   return (
     <>
       {user ? (
         <>
           <Navbar userInfo={user} />
           <div className="app-container">
-            <Routes />
+            <Routes uid={user.uid} />
             {/* <h2>UserList</h2>
         <UsersList userList={Object.values(USERJSON)} />
         <h2>ProfileInfo</h2>
