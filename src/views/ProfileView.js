@@ -13,16 +13,22 @@ export default function ProfileView({ uid }) {
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
   const { username } = useParams();
-  console.warn(uid);
   const currentUid = getCurrentUsersUid();
-  useEffect(() => {
-    if (currentUid === uid) {
+  if (currentUid === uid) {
+    useEffect(() => {
       getUserByUid(currentUid).then(setUser);
       getAllPosts(currentUid).then(setPosts);
       getFollowersByUid(currentUid).then(setFollowers);
       getFollowingByUid(currentUid).then(setFollowing);
-    }
-  }, []);
+    }, []);
+  } else {
+    useEffect(() => {
+      getUserByUid(username).then(setUser);
+      getAllPosts(username).then(setPosts);
+      getFollowersByUid(username).then(setFollowers);
+      getFollowingByUid(username).then(setFollowing);
+    }, []);
+  }
 
   return (
     <div>
