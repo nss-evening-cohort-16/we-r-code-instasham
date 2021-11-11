@@ -9,7 +9,7 @@ export default function ProfileView() {
   return (
     <div>
       <h1>@{username}</h1>
-      <ProfileInfo />
+      <ProfileInfo isUser />
       <PostGrid posts={Object.values(POSTJSON)} />
     </div>
   );

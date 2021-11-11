@@ -16,7 +16,7 @@ export default function SettingsView({ uid }) {
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {
-      getSingleUserBio(uid).then(setEditItem);
+      getSingleUserBio().then(setEditItem);
     }
     return () => {
       isMounted = false;
