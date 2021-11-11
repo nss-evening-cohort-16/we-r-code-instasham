@@ -22,6 +22,7 @@ function App() {
       if (authed) {
         const userInfoObj = {
           uid: authed.uid,
+          username: authed.email.split('@')[0],
         };
         setUser(userInfoObj);
         console.warn(userInfoObj.uid);
@@ -34,7 +35,7 @@ function App() {
     <>
       {user ? (
         <>
-          <Navbar userInfo={{ username: 'asd' }} />
+          <Navbar userInfo={user} />
           <div className="app-container">
             <Routes uid={user.uid} />
             {/* <h2>UserList</h2>

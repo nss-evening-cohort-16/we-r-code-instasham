@@ -6,17 +6,13 @@ import { getAllPosts } from '../helpers/postHelper';
 
 export default function FeedView({ uid }) {
   const [posts, setPosts] = useState([]);
-  // let userPosts = [];
 
   useEffect(() => {
     let isMounted = true;
     getAllPosts(uid).then((userPostsArray) => {
       if (isMounted) {
-        // setUserPosts(userPostsArray);
         setPosts(userPostsArray);
-        console.warn(userPostsArray);
       }
-      console.warn(posts);
     });
     // getFollowingByUid(uid).then((followingArray) => {
     //   if (isMounted) {
