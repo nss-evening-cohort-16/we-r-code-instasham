@@ -13,6 +13,7 @@ import { getFollowersByUid, getFollowingByUid } from '../helpers/relationshipHel
 
 export default function ProfileView() {
   const [user, setUser] = useState({});
+  const [uid, setUid] = useState('');
   const [posts, setPosts] = useState([]);
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
@@ -20,18 +21,20 @@ export default function ProfileView() {
   useEffect(() => {
     getUserByUsername(username).then((response) => {
       setUser(response);
+      const userUid = user.uid;
+      setUid(userUid);
     });
     // const currentUserUid = getCurrentUsersUid();
     // getUserByUid(currentUserUid).then(setUser);
-    getAllPosts(user.uid).then((response) => {
+    getAllPosts(uid).then((response) => {
       console.warn(user);
       console.warn(user.uid);
       const userPosts = response;
       setPosts(userPosts);
     });
-    getFollowersByUid(user.uid).then(setFollowers);
-    getFollowingByUid(user.uid).then(setFollowing);
-  }, []);
+    getFollowersByUid(uid).then(setFollowers);
+    getFollowingByUid(uid).then(setFollowing);
+  }, [user]);
 
   return (
     <div>

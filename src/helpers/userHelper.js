@@ -22,7 +22,11 @@ const getUserByUid = (uid) => new Promise((resolve, reject) => {
 const getUserByUsername = (username) => new Promise((resolve, reject) => {
   axios
     .get(`${dbUrl}/users.json?orderBy="username"&equalTo="${username}"`)
-    .then((response) => resolve((response.data)))
+    .then((response) => {
+      let usernameObject = Object.values(response.data);
+      usernameObject = usernameObject.shift();
+      resolve(usernameObject);
+    })
     .catch(reject);
 });
 
