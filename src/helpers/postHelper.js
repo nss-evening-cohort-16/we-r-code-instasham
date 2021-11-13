@@ -1,5 +1,6 @@
 import axios from 'axios';
 import firebaseConfig from './firebaseHelper';
+import { getFollowingByUid } from './relationshipHelper';
 
 const dbURL = firebaseConfig.databaseURL;
 
@@ -7,6 +8,14 @@ const getAllPosts = (userId) => new Promise((resolve, reject) => {
   axios.get(`${dbURL}/posts.json?orderBy="userId"&equalTo="${userId}"`)
     .then((response) => resolve(Object.values(response.data)))
     .catch(reject);
+});
+
+const getFollowingPosts = (uid) => new Promise((resolve, reject) => {
+  getFollowingByUid(uid).then((followingArray) => {
+    const followingPosts = followingArray.map((following) => getAllPosts(following.followingId));
+    // Promise.all(followingPosts).then(console.warn(followingPosts));
+    resolve(Promise.all(followingPosts));
+  }).catch(reject);
 });
 
 const getSinglePost = (postId) => new Promise((resolve, reject) => {
@@ -36,4 +45,5 @@ export {
   getAllPosts,
   getSinglePost,
   createPost,
+  getFollowingPosts,
 };
