@@ -10,16 +10,13 @@ export default function FeedView({ uid }) {
     let isMounted = true;
     getAllPosts(uid).then((userPostsArray) => {
       if (isMounted) {
-        console.warn('userpostsarray', userPostsArray);
         getFollowingPosts(uid).then((promiseArray) => {
           let followingPostsArray = [];
           promiseArray.forEach((promisePosts) => {
             followingPostsArray = followingPostsArray.concat(promisePosts);
           });
           const postsArray = followingPostsArray.concat(userPostsArray);
-          console.warn(userPostsArray);
-          console.warn(postsArray);
-          setPosts(userPostsArray);
+          setPosts(postsArray);
         });
       }
     });
