@@ -8,6 +8,7 @@ import PostDetailsView from '../views/PostDetailsView';
 import BrowseView from '../views/BrowseView';
 import CreateView from '../views/CreateView';
 import EditPostView from '../views/EditPostView';
+import SettingsView from '../views/SettingsView';
 
 export default function Routes({ uid, userInfo }) {
   return (
@@ -19,6 +20,7 @@ export default function Routes({ uid, userInfo }) {
       <Route exact path="/sham/:username" component={() => <ProfileView uid={uid} userInfo={userInfo} />} />
       <Route exact path="/posts/:postID" component={PostDetailsView} />
       <Route exact path="/edit/:editPostId" component={EditPostView} />
+      <Route exact path="/settings" component={() => <SettingsView uid={uid} />} />
     </Switch>
   );
 }

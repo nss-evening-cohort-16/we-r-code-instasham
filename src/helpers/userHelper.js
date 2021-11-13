@@ -19,6 +19,12 @@ const getUserByUid = (uid) => new Promise((resolve, reject) => {
   // resolve(currentUserInfo);
 });
 
+const updateBio = (bioObj) => new Promise((resolve, reject) => {
+  axios.patch(`${dbUrl}/users/${bioObj.uid}.json`, bioObj)
+    .then(() => getUserByUid(bioObj.uid).then(resolve))
+    .catch(reject);
+});
+
 const getUserByUsername = (username) => new Promise((resolve, reject) => {
   axios
     .get(`${dbUrl}/users.json?orderBy="username"&equalTo="${username}"`)
@@ -30,4 +36,9 @@ const getUserByUsername = (username) => new Promise((resolve, reject) => {
     .catch(reject);
 });
 
-export { getUserByUid, getCurrentUsersUid, getUserByUsername };
+export {
+  getUserByUid,
+  getCurrentUsersUid,
+  getUserByUsername,
+  updateBio,
+};
