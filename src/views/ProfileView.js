@@ -4,6 +4,7 @@ import { useParams } from 'react-router-dom';
 import ProfileInfo from '../components/instasham-design-system/ProfileInfo';
 import PostGrid from '../components/instasham-design-system/PostGrid';
 import {
+  getCurrentUsersUid,
   // getCurrentUsersUid,
   // getUserByUid,
   getUserByUsername,
@@ -17,6 +18,7 @@ export default function ProfileView() {
   const [posts, setPosts] = useState([]);
   const [followers, setFollowers] = useState([]);
   const [following, setFollowing] = useState([]);
+  const [isUser, setIsUser] = useState(false);
   const { username } = useParams();
   useEffect(() => {
     getUserByUsername(username).then((response) => {
@@ -24,8 +26,11 @@ export default function ProfileView() {
       const userUid = user.uid;
       setUid(userUid);
     });
-    // const currentUserUid = getCurrentUsersUid();
-    // getUserByUid(currentUserUid).then(setUser);
+    const currentUser = getCurrentUsersUid();
+    if (currentUser === user.uid) {
+      setIsUser(true);
+      console.warn(isUser);
+    }
     getAllPosts(uid).then((response) => {
       console.warn(user);
       console.warn(user.uid);
@@ -34,7 +39,7 @@ export default function ProfileView() {
     });
     getFollowersByUid(uid).then(setFollowers);
     getFollowingByUid(uid).then(setFollowing);
-  }, [user]);
+  }, []);
 
   return (
     <div>
