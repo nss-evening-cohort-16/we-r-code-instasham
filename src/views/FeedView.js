@@ -16,7 +16,7 @@ export default function FeedView({ uid }) {
           promiseArray.forEach((promisePosts) => {
             followingPostsArray = followingPostsArray.concat(promisePosts);
           });
-          const postsArray = userPostsArray.concat(followingPostsArray);
+          const postsArray = followingPostsArray.concat(userPostsArray);
           console.warn(userPostsArray);
           console.warn(postsArray);
           setPosts(userPostsArray);
