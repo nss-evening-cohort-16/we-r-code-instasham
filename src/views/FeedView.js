@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import PostDetailsCard from '../components/instasham-design-system/PostDetailsCard';
-// import { getFollowingByUid } from '../helpers/relationshipHelper';
-import { getAllPosts } from '../helpers/postHelper';
+import { getAllPosts, getFollowingPosts } from '../helpers/postHelper';
 
 export default function FeedView({ uid }) {
   const [posts, setPosts] = useState([]);
@@ -11,21 +10,19 @@ export default function FeedView({ uid }) {
     let isMounted = true;
     getAllPosts(uid).then((userPostsArray) => {
       if (isMounted) {
-        setPosts(userPostsArray);
+        console.warn('userpostsarray', userPostsArray);
+        getFollowingPosts(uid).then((promiseArray) => {
+          let followingPostsArray = [];
+          promiseArray.forEach((promisePosts) => {
+            followingPostsArray = followingPostsArray.concat(promisePosts);
+          });
+          const postsArray = userPostsArray.concat(followingPostsArray);
+          console.warn(userPostsArray);
+          console.warn(postsArray);
+          setPosts(userPostsArray);
+        });
       }
     });
-    // getFollowingByUid(uid).then((followingArray) => {
-    //   if (isMounted) {
-    //     followingArray.forEach((following) => {
-    //       getAllPosts(following.followingId).then((followingPostsArray) => {
-    //         allFollowingPosts = allFollowingPosts.concat(followingPostsArray);
-    //         // console.warn(allFollowingPosts);
-    //       });
-    //     });
-    //     setPosts(allFollowingPosts);
-    //     console.warn(allFollowingPosts);
-    //   }
-    // });
     return () => {
       isMounted = false;
     };
