@@ -25,7 +25,6 @@ function App() {
           username: authed.email.split('@')[0],
         };
         setUser(userInfoObj);
-        console.warn(userInfoObj.uid);
       } else if (user || user === null) {
         setUser(false);
       }
@@ -37,7 +36,7 @@ function App() {
         <>
           <Navbar userInfo={user} />
           <div className="app-container">
-            <Routes uid={user.uid} />
+            <Routes userInfo={user} uid={user.uid} />
             {/* <h2>UserList</h2>
         <UsersList userList={Object.values(USERJSON)} />
         <h2>ProfileInfo</h2>

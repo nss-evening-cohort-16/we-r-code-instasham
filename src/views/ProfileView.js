@@ -1,16 +1,64 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+// import PropTypes from 'prop-types';
 import ProfileInfo from '../components/instasham-design-system/ProfileInfo';
 import PostGrid from '../components/instasham-design-system/PostGrid';
-import POSTJSON from '../sample_json/posts.json';
+import {
+  getCurrentUsersUid,
+  // getCurrentUsersUid,
+  // getUserByUid,
+  getUserByUsername,
+} from '../helpers/userHelper';
+import { getAllPosts } from '../helpers/postHelper';
+import { getFollowersByUid, getFollowingByUid } from '../helpers/relationshipHelper';
 
 export default function ProfileView() {
+  const [user, setUser] = useState({});
+  const [uid, setUid] = useState('');
+  const [posts, setPosts] = useState([]);
+  const [followers, setFollowers] = useState([]);
+  const [following, setFollowing] = useState([]);
+  const [isUser, setIsUser] = useState(false);
   const { username } = useParams();
+  useEffect(() => {
+    getUserByUsername(username).then((response) => {
+      setUser(response);
+      const userUid = user.uid;
+      setUid(userUid);
+    });
+    const currentUser = getCurrentUsersUid();
+    if (currentUser === user.uid) {
+      setIsUser(true);
+      console.warn(isUser);
+    }
+    getAllPosts(uid).then((response) => {
+      console.warn(user);
+      console.warn(user.uid);
+      const userPosts = response;
+      setPosts(userPosts);
+    });
+    getFollowersByUid(uid).then(setFollowers);
+    getFollowingByUid(uid).then(setFollowing);
+  }, []);
+
   return (
     <div>
       <h1>@{username}</h1>
-      <ProfileInfo />
-      <PostGrid posts={Object.values(POSTJSON)} />
+      <ProfileInfo
+        fullName={user.fullName}
+        bio={user.bio}
+        profileImage={user.profileImage}
+        followingCount={Number(following.length)}
+        followerCount={Number(followers.length)}
+        postsCount={Number(posts.length)}
+        // uid={uid}
+        isUser
+      />
+      <PostGrid posts={posts} />
     </div>
   );
 }
+// ProfileView.propTypes = {
+//   uid: PropTypes.string,
+// };
+// ProfileView.defaultProps = { uid: '' };
