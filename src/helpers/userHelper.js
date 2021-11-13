@@ -12,16 +12,17 @@ const getUserByUid = (uid) => new Promise((resolve, reject) => {
     .then((response) => {
       let currentUserInfo = Object.values(response.data);
       currentUserInfo = currentUserInfo.shift();
-      resolve(currentUserInfo);
+      const firebaseKey = Object.keys(response.data)[0];
+      resolve({ ...currentUserInfo, firebaseKey });
     })
     .catch(reject);
   // const currentUserInfo = { uid };
   // resolve(currentUserInfo);
 });
 
-const updateBio = (bioObj) => new Promise((resolve, reject) => {
-  axios.patch(`${dbUrl}/users/${bioObj.uid}.json`, bioObj)
-    .then(() => getUserByUid(bioObj.uid).then(resolve))
+const updateBio = (uid, bioObj) => new Promise((resolve, reject) => {
+  axios.patch(`${dbUrl}/users/${uid}.json`, bioObj)
+    .then(() => getUserByUid(uid).then(resolve))
     .catch(reject);
 });
 
