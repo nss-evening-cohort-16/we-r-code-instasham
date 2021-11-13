@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import LogoutButton from '../components/we-r-code components/LogoutButton';
 import SettingsForm from '../components/we-r-code components/SettingsForm';
-import { getSingleUserBio } from '../helpers/userHelper';
+import { getUserByUid } from '../helpers/userHelper';
 
 const DivStyle = styled.div`
   display: flex;
@@ -16,7 +16,7 @@ export default function SettingsView({ uid }) {
   useEffect(() => {
     let isMounted = true;
     if (isMounted) {
-      getSingleUserBio().then(setEditItem);
+      getUserByUid(uid).then(setEditItem);
     }
     return () => {
       isMounted = false;

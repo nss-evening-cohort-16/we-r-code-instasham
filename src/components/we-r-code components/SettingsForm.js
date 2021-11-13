@@ -22,9 +22,10 @@ const ButtonStyle = styled.button`
 
 const initialState = {
   bio: '',
+  uid: '',
 };
 
-export default function SettingsForm({ obj = {} }) {
+export default function SettingsForm({ obj = {}, uid }) {
   const [formInput, setFormInput] = useState(initialState);
   const history = useHistory();
 
@@ -33,6 +34,7 @@ export default function SettingsForm({ obj = {} }) {
     if (isMounted) {
       setFormInput({
         bio: obj.bio,
+        uid: obj.uid,
       });
     }
     return () => {
@@ -49,10 +51,16 @@ export default function SettingsForm({ obj = {} }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    updateBio(formInput).then((response) => {
-      console.warn('Items updated!', response);
-    });
-    history.push('/');
+    if (obj.uid) {
+      updateBio(uid, formInput).then(() => {
+        console.warn('Items updated!', uid);
+      });
+      history.push('/');
+    }
+    // updateBio(uid, formInput).then(() => {
+    //   console.warn('Items updated!', uid);
+    // });
+    // history.push('/');
   };
 
   return (
@@ -72,8 +80,10 @@ SettingsForm.propTypes = {
   obj: PropTypes.shape({
     bio: '',
   }),
+  uid: PropTypes.string,
 };
 
 SettingsForm.defaultProps = {
   obj: {},
+  uid: '',
 };
