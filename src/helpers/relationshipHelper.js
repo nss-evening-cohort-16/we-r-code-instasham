@@ -40,13 +40,19 @@ const getIsFollowing = (userId) => new Promise((resolve, reject) => {
 });
 
 const unfollowUser = (relationshipId) => new Promise((resolve) => {
-  // TODO: unfollow user based on relationshipId
-  resolve(relationshipId);
+  // TODO: unfollow user based on relationshipId - DONE I THINK
+  axios.delete(`${dbUrl}/relationships/${relationshipId}/followingId.json`)
+    .then(() => resolve(relationshipId));
 });
 
 const followUser = (userId) => new Promise((resolve) => {
-  // TODO: Create relationship based on passed in userId
-  resolve({ userId });
+  // TODO: Create relationship based on passed in userId - NOT DONE
+  axios.post(`${dbUrl}/relationships/.json`, userId)
+    .then((response) => {
+      const firebaseKey = response.data.name;
+      axios.patch(`${dbUrl}/relationships/${firebaseKey}.json`, { firebaseKey })
+        .then(resolve({ userId }));
+    });
 });
 
 export {
