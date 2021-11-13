@@ -34,7 +34,6 @@ export default function SettingsForm({ obj = {}, uid }) {
     if (isMounted) {
       setFormInput({
         bio: obj.bio,
-        uid: obj.uid,
       });
     }
     return () => {
@@ -51,8 +50,8 @@ export default function SettingsForm({ obj = {}, uid }) {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (obj.uid) {
-      updateBio(uid, formInput).then(() => {
+    if (obj.firebaseKey) {
+      updateBio(obj.firebaseKey, formInput).then(() => {
         console.warn('Items updated!', uid);
       });
       history.push('/');
