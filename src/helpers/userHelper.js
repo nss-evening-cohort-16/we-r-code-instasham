@@ -19,4 +19,15 @@ const getUserByUid = (uid) => new Promise((resolve, reject) => {
   // resolve(currentUserInfo);
 });
 
-export { getUserByUid, getCurrentUsersUid };
+const getUserByUsername = (username) => new Promise((resolve, reject) => {
+  axios
+    .get(`${dbUrl}/users.json?orderBy="username"&equalTo="${username}"`)
+    .then((response) => {
+      let usernameObject = Object.values(response.data);
+      usernameObject = usernameObject.shift();
+      resolve(usernameObject);
+    })
+    .catch(reject);
+});
+
+export { getUserByUid, getCurrentUsersUid, getUserByUsername };
